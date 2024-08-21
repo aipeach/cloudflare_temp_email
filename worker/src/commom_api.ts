@@ -19,6 +19,7 @@ api.get('/open_api/settings', async (c) => {
         "title": c.env.TITLE,
         "announcement": getStringValue(c.env.ANNOUNCEMENT),
         "prefix": c.env.PREFIX,
+        "addressRegex": getStringValue(c.env.ADDRESS_REGEX),
         "minAddressLen": getIntValue(c.env.MIN_ADDRESS_LEN, 1),
         "maxAddressLen": getIntValue(c.env.MAX_ADDRESS_LEN, 30),
         "defaultDomains": getDefaultDomains(c),
@@ -35,6 +36,8 @@ api.get('/open_api/settings', async (c) => {
         "enableWebhook": getBooleanValue(c.env.ENABLE_WEBHOOK),
         "isS3Enabled": isS3Enabled(c),
         "version": CONSTANTS.VERSION,
+        "showGithub": !getBooleanValue(c.env.DISABLE_SHOW_GITHUB),
+        "disableAdminPasswordCheck": getBooleanValue(c.env.DISABLE_ADMIN_PASSWORD_CHECK)
     });
 })
 

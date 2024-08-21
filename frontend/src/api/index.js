@@ -22,6 +22,7 @@ const apiFetch = async (path, options = {}) => {
             data: options.body || null,
             headers: {
                 'x-user-token': userJwt.value,
+                'x-user-access-token': userSettings.value.access_token,
                 'x-custom-auth': auth.value,
                 'x-admin-auth': adminAuth.value,
                 'Authorization': `Bearer ${jwt.value}`,
@@ -55,6 +56,9 @@ const getOpenSettings = async (message) => {
     try {
         const res = await api.fetch("/open_api/settings");
         const domainLabels = res["domainLabels"] || [];
+        if (res["domains"]?.length < 1) {
+            message.error("No domains found, please check your worker settings");
+        }
         Object.assign(openSettings.value, {
             ...res,
             title: res["title"] || "",
@@ -92,6 +96,8 @@ const getOpenSettings = async (message) => {
         }
     } catch (error) {
         message.error(error.message || "error");
+    } finally {
+        openSettings.value.fetched = true;
     }
 }
 
@@ -118,6 +124,8 @@ const getUserOpenSettings = async (message) => {
         Object.assign(userOpenSettings.value, res);
     } catch (error) {
         message.error(error.message || "fetch settings failed");
+    } finally {
+        userOpenSettings.value.fetched = true;
     }
 }
 
@@ -127,7 +135,7 @@ const getUserSettings = async (message) => {
         const res = await api.fetch("/user_api/settings")
         Object.assign(userSettings.value, res)
     } catch (error) {
-        message.error(error.message || "error");
+        message?.error(error.message || "error");
     } finally {
         userSettings.value.fetched = true;
     }
