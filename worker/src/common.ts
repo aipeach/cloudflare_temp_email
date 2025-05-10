@@ -2,7 +2,6 @@ import { Context } from 'hono';
 import { Jwt } from 'hono/utils/jwt'
 
 import { getBooleanValue, getDomains, getStringValue, getIntValue, getUserRoles, getDefaultDomains, getJsonSetting, getAnotherWorkerList } from './utils';
-import { HonoCustomType, UserRole, AnotherWorker, RPCEmailMessage, ParsedEmailContext } from './types';
 import { unbindTelegramByAddress } from './telegram_api/common';
 import { CONSTANTS } from './constants';
 import { AdminWebhookSettings, WebhookMail, WebhookSettings } from './models';
@@ -151,7 +150,7 @@ export const cleanup = async (
     cleanType: string | undefined | null,
     cleanDays: number | undefined | null
 ): Promise<boolean> => {
-    if (!cleanType || typeof cleanDays !== 'number' || cleanDays < 0 || cleanDays > 30) {
+    if (!cleanType || typeof cleanDays !== 'number' || cleanDays < 0 || cleanDays > 1000) {
         throw new Error("Invalid cleanType or cleanDays")
     }
     console.log(`Cleanup ${cleanType} before ${cleanDays} days`);
