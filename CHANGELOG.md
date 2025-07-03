@@ -1,9 +1,16 @@
 <!-- markdownlint-disable-file MD004 MD024 MD034 MD036 -->
 # CHANGE LOG
 
+## main(v1.0.1)
+
+- feat: |UI| 增加极简模式主页, 可在 `外观` 中切换
+
 ## v1.0.0
 
 - fix: |UI| 修复 User 查看收件箱，不选择地址时，关键词查询不生效
+- fix: 修复自动清理任务，时间为 0 时不生效的问题
+- feat: 清理功能增加 创建 n 天前地址清理，n 天前未活跃地址清理
+- fix: |IMAP Proxy| 修复 IMAP Proxy 服务器，无法查看新邮件的问题
 
 ## v0.10.0
 
