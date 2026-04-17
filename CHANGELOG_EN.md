@@ -6,9 +6,29 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
+## v1.7.0(main)
+
+### Breaking Changes
+
+- breaking: |send mail| `SEND_MAIL` semantics changed from a verified-address-only compatibility path to a normal fallback send channel. If an instance already binds `SEND_MAIL` and does not configure Resend/SMTP, recipients outside `verifiedAddressList` will now also be sent through the Cloudflare binding after upgrade, changing runtime behavior and cost routing
+
+### Features
+
+- feat: |send mail| Recommend Cloudflare `send_email` binding as the default send channel. Domains onboarded to Email Routing without Resend/SMTP now automatically use the binding to send to arbitrary addresses (Workers Paid includes 3,000 msgs/month, $0.35/1000 beyond); existing `verifiedAddressList` / Resend / SMTP configurations remain fully compatible (#964)
+
+### Bug Fixes
+
+- fix: |User Mailbox| Fix an issue where the user center still showed delete actions and could still delete mail via `/user_api/mails/:id` when `ENABLE_USER_DELETE_EMAIL` was disabled (#978)
+- fix: |Address| Lowercase configured prefixes when creating addresses to avoid generating mixed-case mailbox names; existing data must be migrated to lowercase manually by the user (#930)
+
+### Improvements
+
 ## v1.6.0(main)
 
 ### Features
+
+- feat: |Admin| Add **IP Whitelist (strict mode)** to IP blacklist settings: when enabled, ONLY whitelisted IPs can access rate-limited APIs (create address, send mail, external send mail, user register, verify code); all other IPs are denied (#920)
+- feat: |Address| Support setting max address count to `0` for unlimited (#968)
 
 ### Bug Fixes
 
@@ -25,6 +45,7 @@
 - docs: |Sidebar| Restructure documentation sidebar into "Core Configuration", "Notifications & Integrations", "Advanced Features", "Admin Console" groups
 - docs: |FAQ| Significantly expand FAQ with SPA 404, send balance, SMTP_CONFIG, mail client login and more (#919, #925, #839, #715, #921, #609)
 - docs: |Email Sending| Enhance SMTP_CONFIG field reference and multi-domain examples, add send balance mechanism documentation
+- docs: |Email Routing| Note that subdomains require Email Routing to be enabled separately; enabling it only on the apex domain does not cover subdomains (#969)
 
 ## v1.5.0(main)
 
