@@ -6,6 +6,14 @@
   <a href="CHANGELOG_EN.md">English</a>
 </p>
 
+## v1.8.0(main)
+
+### Features
+
+### Bug Fixes
+
+### Improvements
+
 ## v1.7.0(main)
 
 ### Breaking Changes
@@ -18,6 +26,7 @@
 
 ### Bug Fixes
 
+- fix: |Send Mail| Auto-initialize the default send balance for addresses that have no `address_sender` row yet when `DEFAULT_SEND_BALANCE > 0`, on the first send-settings read or send API call (`ON CONFLICT DO NOTHING`). Existing rows — including admin-disabled or admin-edited ones — are never overwritten by the runtime path, so users no longer need to manually request send permission first (#925 #985)
 - fix: |User Mailbox| Fix an issue where the user center still showed delete actions and could still delete mail via `/user_api/mails/:id` when `ENABLE_USER_DELETE_EMAIL` was disabled (#978)
 - fix: |Address| Lowercase configured prefixes when creating addresses to avoid generating mixed-case mailbox names; existing data must be migrated to lowercase manually by the user (#930)
 
